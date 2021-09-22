@@ -1,0 +1,178 @@
+#include <GL/glut.h>
+#include <stdlib.h>
+#include <iostream>
+#include <math.h>
+#include <math.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+
+#include <iostream>
+using namespace std;
+static int hand = 30, angel = 0;
+void display(void);
+void reshape(int
+w, int
+h);
+void timer(int
+t);
+int main(int argc, char** argv
+)
+{
+ glutInit(&argc, argv);
+ glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+ glutInitWindowSize(800, 800);
+ glutCreateWindow
+(argv[0]);
+ glClearColor(0.0, 0.0, 0.0, 0.0);
+ glShadeModel(GL_FLAT);
+ glutTimerFunc(50, timer, 1);
+ glutDisplayFunc(display);
+ glutReshapeFunc(reshape);
+ glutMainLoop();
+ return 0; }
+int holder = 1;
+int first = 2;
+int second = 3;
+float xhand =
+-2.5;
+float yhand = 2;
+float ytest =
+-0.7;
+float test =
+-1.5;
+double xt = 0.07;
+double yt = 0.19;
+float xb =
+-1.5;
+float yb =
+-0.4;
+BOOLEAN d = false
+;
+void timer(int
+t) {
+ if (hand == 40 || hand ==
+-20) {
+ holder *=
+-1;
+
+}
+ /*if (hand <
+-38) {
+ holder *=
+-1;
+ test =
+-1.5;
+ ytest =
+-0.5;
+ }*/
+ if (xhand >=
+-1.5 && yhand <=
+-0.5) {
+ d = true
+;
+ xt = xt *
+-1;
+ yt = yt *
+-1;
+
+ }
+ if (d == true && xb >= -2.4) {
+ xb += xt;
+ yb -= yt;
+ }
+ if (xhand < -2.5) {
+ d = false;
+ xt = xt * -1;
+ yt = yt * -1;
+ }
+ hand += holder * first;
+ angel += holder * second;
+ xhand += xt;
+ yhand += -yt;
+ cout << " !";
+ cout << xhand;
+ glutPostRedisplay();
+ glutTimerFunc(70, timer, 1);
+}
+void display(void)
+{
+ glClear(GL_COLOR_BUFFER_BIT);
+ //jesm
+ glPushMatrix();
+ glColor3f(0.5, 0.5, 0.1);
+ glTranslatef(xb, yb, 0.0);
+ glutSolidSphere(0.5, 50, 50);
+ glPopMatrix();
+ //dd
+ // bazoha
+ glPushMatrix();
+ glColor3f(0, 0.5, 0);
+ glTranslatef(0.5, 0, 0.0);
+ glTranslatef(-0.75, 0.75, 0.0);
+ glRotatef((GLfloat)hand, 0.0, 0.0, 1.0);
+ glTranslatef(-0.65, 0.0, 0.0);
+ glPushMatrix();
+ glScalef(1.25, 0.4, 0.1);
+
+ glutSolidCube(1.0);
+ glPopMatrix();
+ glTranslatef(
+-0.65, 0.0, 0.0);
+ glRotatef((GLfloat)angel, 0.0, 0.0, 1.0);
+ glTranslatef(
+-0.5, 0.0, 0.0);
+ glPushMatrix();
+ glScalef(1, 0.4, 0.1);
+ glutSolidCube(1.0);
+ glPopMatrix();
+ glPopMatrix();
+ // sar
+ glPushMatrix();
+ glTranslatef(0.5, 0, 0.0);
+ glTranslatef(0, 1.75, 0.0);
+ glColor3f(1, 0, 0.3);
+ glutSolidCube(0.8);
+ glPopMatrix();
+ // badan
+ glPushMatrix();
+ glTranslatef(0.5, 0, 0.0);
+ glColor3f(0.5, 0, 1);
+ glScalef(1.5, 2, 0.5);
+ glutSolidCube(1.0);
+ glPopMatrix();
+ // pa
+ glPushMatrix();
+ glTranslatef(0.5, 0, 0.0);
+ glColor3f(1, 0, 1);
+ glTranslatef(0,
+-2, 0);
+ glPushMatrix();
+ glTranslatef(0.5, 0, 0);
+ glScalef(0.5, 2, 0.5);
+ glutSolidCube(1.0);
+ glPopMatrix();
+ glPushMatrix();
+ glTranslatef(0, 1, 0);
+ glScalef(1.5, 0.3, 0.5);
+ glutSolidCube(1.0);
+ glPopMatrix();
+ glPushMatrix();
+ glTranslatef(
+-0.5, 0, 0);
+ glScalef(0.5, 2, 0.5);
+ glutSolidCube(1.0);
+ glPopMatrix();
+ glPopMatrix();
+ glutSwapBuffers(); }
+
+void reshape(int w, int h)
+{
+ glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+ glMatrixMode(GL_PROJECTION);
+ glLoadIdentity();
+ gluPerspective(65.0, (GLfloat)w / (GLfloat)h, 1.0, 40.0);
+ glMatrixMode(GL_MODELVIEW);
+ glLoadIdentity();
+ glTranslatef(0.0, 0.0, -5.0);
+}
